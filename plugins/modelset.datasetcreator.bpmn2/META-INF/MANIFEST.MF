@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DatasetCreator BPMN2
+Bundle-SymbolicName: modelset.datasetcreator.bpmn2;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: modelset.datasetcreator.bpmn2.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;bundle-version="2.19.0",
+ modelset.datasetcreator;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: mdeml.datasetcreator.bpmn2
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/mar-common-1.0-SNAPSHOT.jar,
+ .

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="modelset.datasetcreator.modeltype">
+      <modeltype
+            extension="ecore"
+            handler="modelset.datasetcreator.ecore.EcoreHandler"
+            nsURI="http://www.eclipse.org/emf/2002/Ecore">
+      </modeltype>
+   </extension>
+   <extension
+         point="modelset.datasetcreator.datasettype">
+      <datasettype
+            handler="modelset.datasetcreator.ecore.GithubDatasetType"
+            name="github">
+      </datasettype>
+   </extension>
+   <extension
+         point="modelset.datasetcreator.datasettype">
+      <datasettype
+            handler="modelset.datasetcreator.ecore.DatasetTypeHandler1"
+            name="modelset.datasetcreator.ecore.datasettype1">
+      </datasettype>
+   </extension>
+
+</plugin>

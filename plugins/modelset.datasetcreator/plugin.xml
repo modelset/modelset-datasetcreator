@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="modeltype" name="Model Type Extension" schema="schema/modeltype.exsd"/>
+   <extension-point id="datasettype" name="Dataset Type Extension" schema="schema/datasettype.exsd"/>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="modelset.datasetcreator.editors.DatasetCreatorEditor"
+            contributorClass="modelset.datasetcreator.editors.DatasetCreatorEditorContributor"
+            extensions="dsc"
+            icon="icons/sample.png"
+            id="mdeml.datasetcreator.editors.DatasetCreatorEditor"
+            name="Dataset creator">
+      </editor>
+   </extension>
+
+</plugin>

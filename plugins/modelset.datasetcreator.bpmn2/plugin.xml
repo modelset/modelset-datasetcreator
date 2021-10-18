@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="modelset.datasetcreator.modeltype">
+      <modeltype
+            extension="*"
+            handler="modelset.datasetcreator.bpmn2.Handler"
+            nsURI="http://www.omg.org/spec/BPMN/20100524/MODEL-XMI">
+      </modeltype>
+   </extension>
+
+</plugin>

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dataset creator Evaluation
+Bundle-SymbolicName: modelset.datasetcreator.evaluation
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: mdeml.datasetcreator.evaluation
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: modelset.datasetcreator.common;bundle-version="1.0.0",
+ modelset.datasetcreator;bundle-version="1.0.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.uml2.uml,
+ org.junit
+Bundle-ClassPath: .
