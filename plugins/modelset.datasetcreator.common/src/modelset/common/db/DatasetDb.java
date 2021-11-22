@@ -16,6 +16,13 @@ import java.util.Map;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import modelset.common.annotations.AnnotationsValidator;
+import modelset.common.annotations.AnnotationsValidator.ParsedMetadata;
+import modelset.common.annotations.AnnotationsValidator.SyntaxError;
+
 public class DatasetDb {
 
 	@NonNull
@@ -45,6 +52,7 @@ public class DatasetDb {
                 String metadata  = "CREATE TABLE IF NOT EXISTS metadata (\n"
                         + "    id varchar(255) PRIMARY KEY,\n"
                         + "    metadata text NOT NULL\n"  // FK (models)
+                        + "    json text NOT NULL\n"
                         + ");";
 
                 String repositories = "CREATE TABLE IF NOT EXISTS repositories (\n"
@@ -278,11 +286,21 @@ public class DatasetDb {
 		updateModel(model, true);
 	}
 	
-	public void updateModel(@NonNull SwModel model, boolean recordTrace) {		
+	public void updateModel(@NonNull SwModel model, boolean recordTrace) {
+		String metadata = model.getMetadata();
+		String json;
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO metadata VALUES (?, ?)");;
+			Map<String, List<String>> map = AnnotationsValidator.INSTANCE.toMap(metadata);
+			ObjectMapper mapper = new ObjectMapper();
+			json = mapper.writeValueAsString(map);
+		} catch (SyntaxError | JsonProcessingException e2) {
+			throw new IllegalArgumentException();
+		}
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO metadata VALUES (?, ?, ?)");
 			preparedStatement.setString(1, model.getId());
-			preparedStatement.setString(2, model.getMetadata());
+			preparedStatement.setString(2, metadata);
+			preparedStatement.setString(3, json);
 			preparedStatement.execute();
 			System.out.println("Inserted!");
 			
@@ -296,9 +314,10 @@ public class DatasetDb {
 			if (e.getErrorCode() == 19) {
 				// Attempt to re-insert an element, no problem
 				try {
-					PreparedStatement preparedStatement = connection.prepareStatement("UPDATE metadata SET metadata = ? WHERE id = ?");
-					preparedStatement.setString(1, model.getMetadata());
-					preparedStatement.setString(2, model.getId());
+					PreparedStatement preparedStatement = connection.prepareStatement("UPDATE metadata SET metadata = ?, json = ? WHERE id = ?");
+					preparedStatement.setString(1, metadata);
+					preparedStatement.setString(2, json);
+					preparedStatement.setString(3, model.getId());
 					preparedStatement.execute();
 					System.out.println("Updated!");
 					return;
