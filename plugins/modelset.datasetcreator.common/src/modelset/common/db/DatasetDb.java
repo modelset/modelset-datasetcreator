@@ -51,7 +51,7 @@ public class DatasetDb {
 
                 String metadata  = "CREATE TABLE IF NOT EXISTS metadata (\n"
                         + "    id varchar(255) PRIMARY KEY,\n"
-                        + "    metadata text NOT NULL\n"  // FK (models)
+                        + "    metadata text NOT NULL,\n"  // FK (models)
                         + "    json text NOT NULL\n"
                         + ");";
 
@@ -100,6 +100,7 @@ public class DatasetDb {
             }
             this.connection = conn;
         } catch (SQLException e) {
+        	e.printStackTrace();
             System.out.println(e.getMessage());
         }
 	}	
